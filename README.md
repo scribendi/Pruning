@@ -1,5 +1,8 @@
+This repo is meant to be run on the waterloo server
+
 # Pruning
-`git clone `
+
+`git clone git@github.com:scribendi/Pruning.git`
 
 `cd Pruning`
 
@@ -11,6 +14,7 @@
 
 
 # Train
+
 
 
 # Inference
