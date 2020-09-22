@@ -175,35 +175,36 @@ class GecBERTModel(object):
             # # l1_unstructured
             # # m = prune.l1_unstructured(model, 'weight', amount=0.2)
             # # m = prune.l1_unstructured(model, 'bias', amount=3)
-            for name, module in model.named_modules():
-                # print('name:', name)
-                # print('module:', module)#; exit(0)
-                # prune.random_unstructured(module, name='weight', amount=0.2)
+            if prune_amount != 0:
+                for name, module in model.named_modules():
+                    # print('name:', name)
+                    # print('module:', module)#; exit(0)
+                    # prune.random_unstructured(module, name='weight', amount=0.2)
 
-                # # prune 20% of connections in all 2D-conv layers
-                # if isinstance(module, torch.nn.Conv2d):
-                #     prune.l1_unstructured(module, name='weight', amount=0.2)
-                # prune 40% of connections in all linear layers
-                if isinstance(module, torch.nn.Linear):
-                    # print('prune_amount:', prune_amount)
-                    # print('.....pruning.....')
-                    # print('before pruning:', torch.sum(module.weight)); #exit(0)
-                    # print(list(module.named_parameters()))
-                    prune.l1_unstructured(module, name='weight', amount=prune_amount)
-                    # print('shape:', module.weight.shape); #exit(0)
-                    # prune.ln_structured(module, name='weight', amount=prune_amount, n=1, dim=module.weight.shape[1])
-                    # print(list(module.named_parameters())); exit(0)
-                    # print('after pruning:', torch.sum(module.weight));
-                    prune.remove(module, name='weight')
-                    # print('after removing:', torch.sum(module.weight));
-                    # print('shape:', module.weight.shape); exit(0)
+                    # # prune 20% of connections in all 2D-conv layers
+                    # if isinstance(module, torch.nn.Conv2d):
+                    #     prune.l1_unstructured(module, name='weight', amount=0.2)
+                    # prune 40% of connections in all linear layers
+                    if isinstance(module, torch.nn.Linear):
+                        # print('prune_amount:', prune_amount)
+                        # print('.....pruning.....')
+                        # print('before pruning:', torch.sum(module.weight)); #exit(0)
+                        # print(list(module.named_parameters()))
+                        prune.l1_unstructured(module, name='weight', amount=prune_amount)
+                        # print('shape:', module.weight.shape); #exit(0)
+                        # prune.ln_structured(module, name='weight', amount=prune_amount, n=1, dim=module.weight.shape[1])
+                        # print(list(module.named_parameters())); exit(0)
+                        # print('after pruning:', torch.sum(module.weight));
+                        prune.remove(module, name='weight')
+                        # print('after removing:', torch.sum(module.weight));
+                        # print('shape:', module.weight.shape); exit(0)
 
 
 
-                    # exit(0)
+                        # exit(0)
 
-                    # prune.random_unstructured(module, name='weight', amount=0.25)
-                    # exit(0)
+                        # prune.random_unstructured(module, name='weight', amount=0.25)
+                        # exit(0)
             # exit(0)
             print_size_of_model(model); #exit(0)
             ##############################################################
