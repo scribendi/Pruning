@@ -1,4 +1,4 @@
-This repo is meant to be run on the waterloo server
+This repo is meant to be run on the waterloo server with python-3.7.7
 
 # Pruning
 
@@ -7,9 +7,8 @@ This repo is meant to be run on the waterloo server
 `cd Pruning`
 
 # Setting up the environment
-`source /data/faizy/miniconda3/bin/activate`
+`pip install -r requirements.txt`
 
-`conda activate tf-gpu`
 
 ## lets do the experiment in a folder called expt1
 
@@ -19,18 +18,18 @@ This repo is meant to be run on the waterloo server
 
 ## Now we are in expt1 directory. We want to train our model on 4million Scribendi data. First, we need to preprocess train and validation set.
 
-## train
-`python ../utils/preprocess_data.py -s /data/faizy/scribendidata/src-train.txt -t /data/faizy/scribendidata/targ-train.txt -o data-train`
+## train data
+`python ../utils/preprocess_data.py -s /data/faizy/spunkt/train.src  -t /data/faizy/spunkt/train.tgt -o data-train`
 
-## validation
-`python ../utils/preprocess_data.py -s /data/faizy/scribendidata/src-validation.txt -t /data/faizy/scribendidata/targ-validation.txt -o data-validation`
+## validation data
+`python ../utils/preprocess_data.py -s /data/faizy/spunkt/valid.src  -t /data/faizy/spunkt/valid.tgt  -o data-validation`
 
 
 # Train
 ## current program use only one GPU card
-## lets train a bert model on gpu3. The trained model will be saved under bert-model 
+## lets train a bert model on gpu2. The trained model will be saved under bert-model 
 
-`CUDA_VISIBLE_DEVICES=3 python ../custom_train.py --train_set data-train --dev_set data-validation --model_dir bert-model --batch_size 256 --n_epoch 50 --transformer_model bert  --special_tokens_fix 0 `  
+`CUDA_VISIBLE_DEVICES=2 python ../train.py --train_set data-train --dev_set data-validation --model_dir bert-model --batch_size 256 --n_epoch 50 --transformer_model bert  --special_tokens_fix 0 `  
 
 
 
