@@ -16,13 +16,14 @@ This repo should be run with python-3.7.7
 
 # Preprocessing 
 
-## Now we are in expt1 directory. We want to train our model on 4million Scribendi data. First, we need to preprocess train and validation set.
+## Now we are in expt1 directory. First, we need to preprocess train and validation set.
 
 ## train data
-`python ../utils/preprocess_data.py -s /data/faizy/spunkt/train.src  -t /data/faizy/spunkt/train.tgt -o data-train`
+`python ../utils/preprocess_data.py -s Path_To_Erroneous_Train_Data -t Path_To_Correct_Train_Data  -o data-train`
+
 
 ## validation data
-`python ../utils/preprocess_data.py -s /data/faizy/spunkt/valid.src  -t /data/faizy/spunkt/valid.tgt  -o data-validation`
+`python ../utils/preprocess_data.py -s Path_To_Erroneous_Validation_Data  -t Path_To_Correct_Validation_Data  -o data-validation`
 
 
 # Train
@@ -34,29 +35,10 @@ This repo should be run with python-3.7.7
 
 
 # Inference
-## We want to make inference on Scribendi test (small) data. The inference will be stored in a file named output-bert
-### if the training is finished
-`model_path="bert-12/model.th" ; vocab_path="bert-12/vocabulary/"`
-### else use the back up model in the meantime
-`model_path="backup-model/model.th" ; vocab_path="backup-model/vocabulary/"`
+## We want to make inference on the test data. The inference will be stored in a file named output-bert
 
-`CUDA_VISIBLE_DEVICES=2 python ../predict.py --model_path $model_path  --vocab_path $vocab_path --input_file /data/faizy/scribendidata/test-small.src  --output_file output-bert   --batch_size 1000 --transformer_model bert --special_tokens_fix 0 --keep 12`
+`CUDA_VISIBLE_DEVICES=2 python ../predict.py --model_path Path_To_Model  --vocab_path Path_To_Vocabulary --input_file Path_To_Test_Data  --output_file output-bert   --batch_size 1000 --transformer_model bert --special_tokens_fix 0 --keep 12`
 
-
-# Metrics
-## M2 Score
-`bash ../get_m2score.bash output-bert`
-
-## JFLEG Score
-### predict on JFLEG data
-`CUDA_VISIBLE_DEVICES=2 python ../predict.py --model_path $model_path --vocab_path $vocab_path --input_file /data/faizy/jfleg/test/test.src --output_file output-jfleg-bert --batch_size 1000 --transformer_model bert --special_tokens_fix 0 `
-
-`bash ../get_jfleg_score.bash output-jfleg-bert ` 
-
-## Errant Score
-### first switch to errant environment
-`source /data/faizy/errant_env/bin/activate`
-` bash ../get_errant_score.bash output-bert`
 
 
 
