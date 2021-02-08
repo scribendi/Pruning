@@ -1,4 +1,4 @@
-This repo is meant to be run on the waterloo server with python-3.7.7
+This repo should be run with python-3.7.7
 
 # Pruning
 
