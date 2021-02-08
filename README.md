@@ -27,7 +27,6 @@ This repo should be run with python-3.7.7
 
 
 # Train
-## current program use only one GPU card
 ## lets train a bert model with 12 encoder layers on gpu2. The trained model will be saved under bert-12 
 
 `CUDA_VISIBLE_DEVICES=2 python ../train.py --train_set data-train --dev_set data-validation  --model_dir bert-12 --batch_size 32 --n_epoch 50 --transformer_model bert               --special_tokens_fix 0 --keep 12    --model_path . --max_len 60 --patience 10 --tune_bert 1 `  
